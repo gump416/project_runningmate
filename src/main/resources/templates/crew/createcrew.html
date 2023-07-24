@@ -1,0 +1,142 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout4 :: layout(~{::title}, ~{::script}, ~{::section})}">
+
+  <title>러닝 모임 만들기</title>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+  window.onload = function(){
+      document.getElementById("placeSelect").addEventListener("click", function(){ //주소입력칸을 클릭하면
+          //카카오 지도 발생
+          new daum.Postcode({
+              oncomplete: function(data) { //선택시 입력값 세팅
+                  document.getElementById("placeSelect").value = data.address; // 주소 넣기
+                  document.querySelector("input[name=crewLocationDt]").focus(); //상세입력 포커싱
+              }
+          }).open();
+      });
+  }
+  </script>
+  
+<section>
+  <div class="wrap">
+
+    <!-- 슬라이드 -->
+     <div class="main_slide mb-5">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="4000">
+            <img src="/img/1.png" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="/img/2.jpg" class="d-block w-100" alt="...">
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div> 
+
+
+
+    
+          <h2>러닝 모임 만들기</h2>
+         <form method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label class="form-label mt-4 formtitle">제목</label>
+            <input type="text" class="form-control" id="title" placeholder="모임 제목을 입력하세요 (20자 이내)" name="title" required>
+            <small id="titleHelp" class="form-text text-muted">매너있는 모임이 될 수 있게 합시다.</small>
+          </div>
+
+        
+
+
+          
+            <div class="row">
+              <div class="col-9">
+                <label class="form-label mt-4 formtitle" for="inputDefault" required>모임 날짜</label>
+                <input type="datetime-local" class="form-control" placeholder="Default input" id="inputDefault" name="crewdate">
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleSelect1" class="form-label mt-4 formtitle">참여 인원수(최대 10명)</label>
+                  <input type="number" class="form-control" id="number" name="mateCount" value="1" min="1" max="10">
+              </div>
+              </div>
+            </div>
+            
+
+         
+
+            <div class="form-group">
+            <label class="form-label mt-4 formtitle">장소 선택</label>
+            <input type="text" class="form-control" id="placeSelect" name="crewLocation" placeholder="클릭하면 주소 검색" required>
+            <input type="text" class="form-control" placeholder="상세 주소 입력" name="crewLocationDt" required>
+          </div>
+          
+          <div class="row">
+            <div class="col-4">
+              <label class="form-label mt-4 formtitle">러닝 수준 선택</label>
+              <select class="form-select" id="level" name="crewLevel">
+                <option>빨리 걷기</option>
+                <option>천천히 러닝</option>
+                <option>건강한 러닝</option>
+                <option>고강도 러닝</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <label class="form-label mt-4 formtitle">러닝 코스 길이(km)</label>
+              <input type="number" class="form-control" id="number" name="courseLeng" value="1" min="1" max="100">
+            </div>
+        </div>
+          
+
+
+          <div class="form-group">
+            <label class="form-label mt-4 formtitle">코스 간략 소개</label>
+            <input type="text" class="form-control" id="oneline1" placeholder="코스에 대한 간략 소개" name="courseIntro" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label mt-1 formtitle">날씨 정보</label>
+            <input type="text" class="form-control" id="oneline2" placeholder="당일 예상 날씨" name="weatherIntro" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label mt-1 formtitle">기타 추가 정보</label>
+            <input type="text" class="form-control" id="oneline3" placeholder="주변 주차장 정보 등" name="etcIntro" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4 formtitle">모임 소개글</label>
+            <textarea class="form-control" id="exampleTextarea" rows="10" placeholder="모임 취지, 평소 러닝 스타일, 지켜야할 규칙, 기피 대상 등" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="formFile" class="form-label mt-4">사진 업로드</label>
+            <small id="uploadHelp" class="form-text text-muted">최대 3장까지 가능</small>
+            <input class="form-control" type="file" id="formFile" name="uploadfiles" multiple >
+          </div>
+          <div class="text-center">
+            <button type="submit" id="create_form" class="btn btn-primary mt-4">&nbsp&nbsp등 록&nbsp&nbsp</button>
+            <a href="/"><button type="button" class="btn btn-primary mt-4 ms-4">&nbsp&nbsp취 소&nbsp&nbsp</button></a>
+          </div>
+         </form>
+</div>
+      
+</section>
+<script src="/js/crew/createcrew.js"></script>
+
+</html>

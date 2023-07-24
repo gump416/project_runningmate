@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout4 :: layout(~{::title}, ~{::script}, ~{::section})}">
+  
+  <title>회원 상세 수정</title>
+  <section class="py-5">
+    <div class="container">
+
+        <div class="page-header">
+      <h2>회원 상세</h2>
+    </div>
+    
+    <form id="detail-form" class="needs-validation" method="post">
+    <div>
+      <label for="email">이메일</label> 
+      <input type="text" th:value="${mate != null ? mate.email : (kakaoMate != null ? kakaoMate.email : '')}" id="email" name="email" class="form-control" readonly>
+    </div>
+    <div class="form-group row">
+    <div class="col-8">
+      <label for="name">이름</label> 
+      <input type="text" th:value="${mate != null ? mate.name : (kakaoMate != null ? kakaoMate.name : '')}" id="name" name="name" class="form-control" value="" disabled>
+    </div>
+    <div class="col">
+      <label for="gender">성별</label> 
+      <div th:if="${mate!=null}">
+      <input type="text" th:value="${mate.getGender() == 'M' ? '남' : '여'}" id="visibility-gender" class="form-control" maxlength="1" disabled>
+      <input type="hidden" th:value="${mate.getGender()}" id="hidden-gender" name="gender" class="form-control" maxlength="1">
+      </div>
+      <div th:if="${kakaoMate!=null}">
+      <input type="text" th:value="${kakaoMate.getGender() == 'male' ? '남' : '여'}" id="visibility-gender" class="form-control" maxlength="1" disabled>
+      <input type="hidden" th:value="${kakaoMate.getGender()}" id="hidden-gender" name="gender" class="form-control" maxlength="1">
+      </div>
+      <div id="gender-check-message" class="text-success mt-1" style="font-size: 0.6rem;"></div>
+    </div>
+    </div>
+    <div class="form-group row">
+    <div class="col">
+      <label for="password">비밀번호</label> 
+      <input type="password" id="password" name="password" class="form-control" value="" disabled>
+      <div class="invalid-feedback">비밀번호를 입력하세요.</div>
+      <div id="password-message" class="text-success mt-1" style="font-size: 0.6rem;"></div>
+    </div>
+    <div class="col">
+      <label for="password-check">비밀번호 확인</label> 
+      <input type="password" id="password-check" name="password-check" class="form-control" value="" disabled>
+      <div id="password-check-message" class="text-success mt-1" style="font-size: 0.6rem;"></div>
+    </div>
+     <div class="col">
+     <label for="password-check"></label> 
+        <button class="w-100 btn btn-primary pt-2" onclick="" type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">비밀번호 변경</button>
+      </div>
+            
+
+      
+    </div>
+    <div>
+      <label for="birthdate">생년월일</label> 
+      <input type="text" th:value="${mate != null ? mate.birthdate : (kakaoMate != null ? kakaoMate.birthdate : '')}" id="birthdate" name="birthdate" class="form-control" maxlength="10" value="" disabled>
+      <div id="birthdate-check-message" class="text-success mt-1" style="font-size: 0.6rem;"></div>
+    </div>
+    <div>
+      <label for="phoneNumber">전화번호</label> 
+      <input type="text" th:value="${mate != null ? mate.phoneNumber : (kakaoMate != null ? kakaoMate.phoneNumber : '')}" id="phoneNumber" name="phoneNumber" class="form-control" maxlength="11" value="" disabled>
+      <div id="phoneNumber-check-message" class="text-success mt-1" style="font-size: 0.6rem;"></div>
+    </div>
+    <div>
+      <label for="address">주소</label> 
+      <input type="text" th:value="${mate != null ? mate.address : (kakaoMate != null ? kakaoMate.address : '')}" id="address" name="address" class="form-control" disabled required>
+    </div>
+     <div>
+      <label for="addressDetail">상세 주소</label> 
+      <input type="text" th:value="${mate != null ? mate.addressDetail : (kakaoMate != null ? kakaoMate.addressDetail : '')}" id="addressDetail" name="addressDetail" class="form-control" disabled required>
+    </div>
+   
+      <div id="detail-update-list" class="row mt-4">
+      <div class="col">
+        <button class="w-100 btn btn-primary" id="update-button" onclick="" type="submit">회원정보 수정</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary" onclick="" type="button">회원 목록</button>
+      </div>
+    </div>
+    
+    <div id="detail-save-cancel-delete" class="mt-4">
+      <div class="col">
+      <div class="d-flex justify-content-evenly">
+        <button class="w-100 btn btn-primary me-4" id="update-finsh-button" onclick="" type="button">수정 완료</button>
+        <button class="w-100 btn btn-primary me-4" id="cancel-button" onclick="location.href='/mate/mypage';" type="button">취소</button>
+        <button class="w-100 btn btn-danger" id="leave-button" onclick="" type="button">탈퇴</button>
+    </div>
+    </div>
+    </div>
+    
+    
+    </form>
+    
+     <div class="modal" id="changePasswordModal">
+  <div class="modal-dialog" role="document">
+  <form id="new-password-form" class="" method="post">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">비밀번호 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="col">
+      <label for="present-password">현재 비밀번호</label> 
+      <input type="password" id="present-password" name="present-password" class="form-control" value="" required disabled>
+      <div class="mt-1 text-success" id="present-password-message" style="font-size: 0.6rem;"></div>
+    </div>
+        <div class="col">
+      <label for="new-password">새 비밀번호</label> 
+      <input type="password" id="new-password" name="new-password" class="form-control" required disabled>
+      <div class="mt-1 text-success" id="new-password-message" style="font-size: 0.6rem;"></div>
+    </div>
+    <div class="col">
+      <label for="new-password-check">새 비밀번호 확인</label> 
+      <input type="password" id="new-password-check" name="new-password-check" class="form-control" value="" required disabled>
+      <div class="mt-1 text-success" id="new-password-check-message" style="font-size: 0.6rem;"></div>
+    </div>    
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="new-password-button">비밀번호 변경</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+    </form>
+    
+  </div>
+</div>
+    
+    
+    
+    </div>
+    
+  </section>
+   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+  window.onload = function(){
+	    document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	                document.getElementById("address").value = data.address; // 주소 넣기
+	                document.querySelector("input[name=addressDetail]").focus(); //상세입력 포커싱
+	            }
+	        }).open();
+	    });
+	}
+
+  </script>
+
+  
+
+  <script src="/js/mate/mateDetail1.js" defer></script>
+  <script src="/js/mate/mateDetail2.js" defer></script>
+  <script src="/js/mate/mateDetail3.js" defer></script>
+  
+</html>

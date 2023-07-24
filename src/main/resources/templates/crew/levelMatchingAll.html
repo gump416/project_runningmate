@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout :: layout(~{::title},~{::section})}">
+
+    <title>수준별 매칭 페이지</title>
+<section>
+
+    <div class="container mt-5 g-0">
+
+
+      <!-- 이미지 -->
+      <div class="image-container my-3">
+        <img src="/img/1.png" alt="대표 이미지" class="img-fluid">
+      </div>
+
+      <!-- 리스트 -->
+
+<!-- <th:block th:each="date : ${dates}">
+ <h5 th:text="${date.crewdate}">3월 24일 금요일</h5> -->
+  <div class="run_list">
+    <table class="table table-hover text-center">
+      <tbody>
+         <tr th:each="levelCrew : ${levelCrews}">
+          <th scope="row" th:text="${levelCrew.crewdate}">16:00</th>
+          <td colspan="2"><span th:text="${levelCrew.title}">남산 공원</span> 
+            <div class="prop">
+              <span th:text="${levelCrew.crewLocation}">위치 주소</span>
+            </div>
+          </td>
+          <td>
+           <a th:href="@{${'/crew/' + levelCrew.crewId}}">
+             <button type="button" class="btn btn-primary btn-sm">신청 가능</button>
+           </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<!-- </th:block> -->
+
+
+
+    </div>
+    </section>
+    <!-- <script src="/js/crew/levelMatchingAll.js"></script> -->
+</html>

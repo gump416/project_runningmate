@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.runningmate.domain.manage.mapper.ReviewMapper">
+
+
+<update id="thumbsUp" parameterType="String">
+	UPDATE members
+    SET manner_temp = manner_temp + 1
+    WHERE email = #{email}
+</update>
+
+<update id="thumbsDown" parameterType="String">
+	UPDATE mate
+	SET manner_temp = manner_temp -1
+	WHERE email = #{email}
+</update>
+
+<update id="nAppearance" parameterType="String">
+	UPDATE mate
+	SET manner_temp = manner_temp -3
+	WHERE email = #{email}
+</update>
+
+<insert id="newReview" parameterType="Review">
+	INSERT INTO review(review_id, author, content, writedate, email)
+	VALUES(#{reviewId}, #{author}, #{content}, SYSDATE, #{email})
+</insert>
+
+<select id="getReview" parameterType="String">
+	SELECT author, content
+	FROM review
+	WHERE email = #{email}
+</select>
+
+</mapper>
+
