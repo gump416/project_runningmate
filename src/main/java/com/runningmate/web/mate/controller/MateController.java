@@ -32,7 +32,7 @@ public class MateController {
 	/**
 	 * 회원가입 화면 요청에 대한 처리 메서드입니다.
 	 *
-	 * @return "mate/register" 뷰를 반환합니다.
+	 * @return "mate/register" 뷰를 반환합니다. 
 	 */
 	@GetMapping
 	public String registerForm() {
