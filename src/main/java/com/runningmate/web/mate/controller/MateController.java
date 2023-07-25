@@ -61,7 +61,7 @@ public class MateController {
 	 * 회원가입을 처리하는 메서드입니다.
 	 *
 	 * @param mate 회원 정보를 담은 Mate 객체
-	 * @return 로그인 페이지로 리다이렉트합니다.
+	 * @return 로그인 페이지로 리다이렉트합니다. 
 	 */
 	@PostMapping
 	public String register(@ModelAttribute("mate") Mate mate) {
